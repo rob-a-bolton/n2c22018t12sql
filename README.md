@@ -13,10 +13,10 @@ clj -M -m n2c22018t12sql.core -t 'table-name' -a true -d /path/to/dir -j 'jdbc:s
 ```
 
 The following arguments are supported:
-+ *-j*, *--jdbc* **<URL>** JDBC database connection string (DSN).
-+ *-t*, *--table-name* **<TABLE-NAME>** Name of table in database to insert to.
-+ *-d*, *--dataset-dir* **<PATH>** Path to directory containing n2c2 XML files.
-+ *-a*, *--annotated* **<TRUE/FALSE>** Whether data is annotated with cohort challenge tags (met/not met). Defaults to false.
++ *-j*, *--jdbc* **URL** JDBC database connection string (DSN).
++ *-t*, *--table-name* **TABLE-NAME** Name of table in database to insert to.
++ *-d*, *--dataset-dir* **PATH** Path to directory containing n2c2 XML files.
++ *-a*, *--annotated* **TRUE/FALSE** Whether data is annotated with cohort challenge tags (met/not met). Defaults to false.
 + *-?*, *--help* Prints help message
 
 Additionally it is possible to provide *--jdbc* as an environment variable instead of a command line option.
