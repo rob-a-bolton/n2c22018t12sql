@@ -28,6 +28,25 @@
     [:makes-decisions :boolean]
     [:mi-6mos :boolean]]))
 
+(defn print-error
+  [& msgs]
+  (binding [*out* *err*]
+    (println msgs)))
+
+(defn print-jdbc-help
+  []
+  (println
+   (str/join
+    (System/lineSeparator)
+    ["A JDBC connection string is a database-driver specific URL used to configure the connection."
+     "Here are some common examples:"
+     " jdbc:sqlite:test.db"
+     " jdbc:sqlite:C:/SomeFolder/My.db"
+     " jdbc:mariadb://localhost:3306/MyDBname?user=maria&password=hunter2"
+     " jdbc:postgresql://localhost/n2c2?user=n2c2&password=badpassword"
+     ""
+     "The only drivers bundled with this app are sqlite, mariadb, and postgresql."])))
+
 (defn lower-case-kw
   [kw]
   (keyword (str/lower-case (name kw))))
@@ -44,15 +63,6 @@
   [f]
   (filter #(str/ends-with? (.getName %) ".xml")
           (file-seq f)))
-
-(defn read-n2c2-xml
-  [f]
-  (with-open [r (io/reader f)]
-    (-> (xml/parse r)
-        :content
-        first
-        :content
-        first)))
 
 (defn extract-text
   [doc-tree]
@@ -106,6 +116,16 @@
            (sql/format {:pretty true})))
       (.commit con))))
 
+(defn try-import-data
+  [args]
+  (try
+    (import-data args)
+    (catch java.sql.SQLException e
+      (print-error (.getMessage e))
+      (when (str/starts-with? (.getMessage e) "No suitable driver found")
+        (print-jdbc-help))
+      (System/exit 1))))
+
   (def cli-configuration
     {:command "n2c22018t12sql"
      :description "Import n2c2 \"Track 1 Cohort Selection for Clinical Trials\" data from XML into SQL"
@@ -130,7 +150,7 @@
              :default :present
              :type :string
              :as "Directory containing dataset XML files"}]
-     :runs import-data})
+     :runs try-import-data})
 
 (defn -main
   [& args]
