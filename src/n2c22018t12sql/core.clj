@@ -244,7 +244,7 @@
            :default :present
            :env "JDBC"
            :type :string
-           :as "JDBC DSN connection string"}
+           :as "JDBC connection string"}
           {:option "patient-table"
            :short "p"
            :default :patients
