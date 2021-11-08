@@ -31,7 +31,7 @@ Examples of supported JDBC strings:
 * *jdbc:mariadb://localhost:3306/MyDatabase?user=maria&password=hunter2*
 * *jdbc:postgresql://localhost/n2c2?user=n2c2&password=n2c2*
 
-Bear in mind that the question mark `?` and ampersand `&` characters are commonly special characters in shells and must be escaped.
+Bear in mind that the question mark *?* and ampersand *&* characters are commonly special characters in shells and must be escaped.
 For this reason it is recommended you put your connection string in quotes as shown in the example at the top of this README.
 
 Please note that *--dataset-dir* will scan recursively for all XML files. For this reason do not mix unnecessary XML files in with the n2c2 data, even if in subfolders.

@@ -29,7 +29,7 @@
    [:doc-id :int]
    [:date :date]
    [:text :text]
-   [[:constraint :pat_doc] [:primary-key :pat-id :doc-id]]])
+   [[:primary-key :pat-id :doc-id]]])
 
 (defn mk-annotation-cols
   "Create column definitions for annotation table referencing
